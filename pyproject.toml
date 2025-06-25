@@ -1,0 +1,22 @@
+[project]
+name = "easyofd"
+version = "0.5.2.alpha1"
+description = "easy operate OFD"
+authors = [
+    {name = "renoyuan", email = "renoyuan@foxmail.com"}
+]
+license = "Apache-2.0"
+readme = "README.md"
+requires-python = ">=3.8,<4.0.0"
+dependencies = [
+    "reportlab (>=4.4.2,<5.0.0)",
+    "xmltodict (>=0.13.0)",
+    "loguru (>=0.7.2)",
+    "fonttools (>=4.43.1)",
+    "pyasn1 (>=0.6.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"

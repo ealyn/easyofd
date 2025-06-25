@@ -12,7 +12,6 @@ from decimal import Decimal
 from collections import OrderedDict
 
 # 第三方包
-import fitz
 from PIL import Image
 # import pdfplumber
 
@@ -44,6 +43,7 @@ class DPFParser(object):
         pdf_stream = io.BytesIO(pdf_bytes)
 
         # 使用fitz.open直接打开BytesIO对象
+        import fitz
 
         with fitz.open(stream=pdf_stream, filetype="pdf") as doc:
             res_uuid_map = {
@@ -155,6 +155,7 @@ class DPFParser(object):
     def to_img(self, buffer_pdf):
         """pdf2img"""
         pix_list = []
+        import fitz
         pdfDoc = fitz.open(stream=buffer_pdf)
         for pg in range(pdfDoc.page_count):
             page = pdfDoc[pg]
@@ -305,6 +306,7 @@ class ParseFile(PageInfo):
         return result
 
     def load_pdf(self):
+        import fitz
         self.fitz_doc = fitz.open(self.file_path, filetype='pdf')
         # self.pdfplum_doc_pages = pdfplumber.open(self.file_path).pages
         # assert len(self.fitz_doc) == len(self.pdfplum_doc_pages)

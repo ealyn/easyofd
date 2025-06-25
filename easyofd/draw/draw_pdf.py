@@ -126,6 +126,7 @@ class DrawPDF():
     def draw_chars(self, canvas, text_list, fonts, page_size):
         """写入字符"""
         c = canvas
+        default_font = self.font_tool.FONTS[0]
         for line_dict in text_list:
             # TODO 写入前对于正文内容整体序列化一次 方便 查看最后输入值 对于最终 格式先
             text = line_dict.get("text")
@@ -138,7 +139,8 @@ class DrawPDF():
 
             # TODO 判断是否通用已有字体 否则匹配相近字体使用
             if font_name not in self.font_tool.FONTS:
-                font_name = self.font_tool.FONTS[0]
+                logger.warning(f"font '{font_name}' not exist, use default '{default_font}'")
+                font_name = default_font
 
             font = self.font_tool.normalize_font_name(font_name)
             # print(f"font_name:{font_name} font:{font}")
@@ -147,7 +149,9 @@ class DrawPDF():
                 c.setFont(font, line_dict["size"] * self.OP)
             except KeyError as key_error:
                 logger.error(f"font({font}) not found: {key_error}")
-                font =  self.font_tool.FONTS[0]
+                if font_name == default_font:
+                    raise
+                font = self.font_tool.normalize_font_name(default_font)
                 c.setFont(font, line_dict["size"] * self.OP)
             # 原点在页面的左下角 
             color = line_dict.get("color", [0, 0, 0])

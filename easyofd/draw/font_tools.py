@@ -51,7 +51,10 @@ from easyofd.draw import FONTS
 
 from loguru import logger
 
-
+def move_to_front(array: list[str], elem: str):
+    if elem in array:
+        array.remove(elem)
+        array.insert(0, elem)
 
 class FontTool(object):
     FONTS = FONTS
@@ -65,17 +68,21 @@ class FontTool(object):
 
     def get_system_font_dirs(self,):
         """获取不同操作系统的字体目录"""
-        system = os.name
-        if system == 'nt':  # Windows
+        from sys import platform
+        if platform == 'win32':
             return [os.path.join(os.environ['WINDIR'], 'Fonts')]
-        elif system == 'posix':  # Linux/macOS
+        elif platform == 'linux' or platform == "linux2":
             return [
                 '/usr/share/fonts',
                 '/usr/local/share/fonts',
                 os.path.expanduser('~/.fonts'),
                 os.path.expanduser('~/.local/share/fonts'),
-                '/Library/Fonts',  # macOS
-                '/System/Library/Fonts'  # macOS
+            ]
+        elif platform == 'darwin':
+            return [
+                '/Library/Fonts',
+                '/System/Library/Fonts',
+                os.path.expanduser('~/Library/Fonts/'),
             ]
         else:
             return []
@@ -160,9 +167,8 @@ class FontTool(object):
                         except Exception as e:
                             print(f"解析字体 {font_path} 失败: {e}")
         installed_fonts = list(installed_fonts)
-        if "宋体" in installed_fonts:
-            installed_fonts.remove("宋体")
-            installed_fonts.insert(0, "宋体")
+        # move_to_front(installed_fonts, "宋体")
+        move_to_front(installed_fonts, 'AR PL UKai CN')
         return installed_fonts
 
     def is_font_available(self, target_font):

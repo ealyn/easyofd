@@ -12,7 +12,8 @@ font_map = {"simsun.ttc":["宋体","SWPMEH+SimSun","SimSun","SWDKON+SimSun"],
             # 'STKAITI.TTF':["华文楷体 常规","STKAITI","华文楷体"],
             "COURI.TTF":["CourierNewPSMT","CourierNew","SWCRMF+CourierNewPSMT","SWANVV+CourierNewPSMT"],
             "courbd.TTF":["Courier New"],
-            "simhei.ttf":["SimHei","hei","黑体"]
+            "simhei.ttf":["SimHei","hei","黑体"],
+            "/usr/share/fonts/truetype/arphic/ukai.ttc":["ARPLUKaiCN"],
             }
 pdfmetrics.registerFont(UnicodeCIDFont('STSong-Light'))
 

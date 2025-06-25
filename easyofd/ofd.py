@@ -14,7 +14,6 @@ from typing import Union
 sys.path.insert(0, os.getcwd())
 sys.path.insert(0, "..")
 
-import fitz
 
 from PIL import Image
 from loguru import logger
@@ -76,6 +75,7 @@ class OFD(object):
 
         image_list = []
 
+        import fitz
         doc = fitz.open(stream=pdfbytes, filetype="pdf")
 
         for page in doc:
